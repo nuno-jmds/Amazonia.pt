@@ -1,6 +1,6 @@
-class AudioLivro:Livro
+class AudioLivro : Livro
 {
-    public string FormatoDoFicheiro { get; set; }
+    public string FormatoFicheiro { get; set; }
 
-    public string Duracao { get; set; }
+    public int DuracaoLivro { get; set; }
 }

@@ -1,4 +1,4 @@
-class Morada
+public class Morada
 {
 
 

@@ -1,4 +1,4 @@
-public class Dimensoes
+ public class Dimensoes
 {
     ///Dimensões em centimetros
     public float Largura { get; set; }
