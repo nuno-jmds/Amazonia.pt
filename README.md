@@ -4,7 +4,7 @@
 
 Amazonia E-Commerce
 
-![Logo](Readmefiles\AMAZONIA.PT.png)
+![AMAZONIA.PT](Readmefiles/AMAZONIAPT.png)
 
 ## License & copyright
 
