@@ -7,5 +7,4 @@
 Amazonia E-Commerce
 
 <h3> License & copyright </h3>
-
-&copy Nuno Santos
+<p> &copy Nuno Santos </p>
