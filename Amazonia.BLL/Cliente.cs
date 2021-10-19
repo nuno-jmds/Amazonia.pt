@@ -9,5 +9,6 @@ class Cliente
 
     public string Password { get; set; }
     public DateTime DataNascimento { get; set; }
+    public string NumeroContribuinte { get; set; }
 
 }
