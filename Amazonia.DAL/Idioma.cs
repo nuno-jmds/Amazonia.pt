@@ -1,9 +1,11 @@
 
-namespace Amazonia.DAL{
-    enum Idioma
+namespace Amazonia.DAL
 {
-    Portugues = 1,
-    Espanhol = 2,
-    Ingles = 0,
-    Frances = 4
-}}
+    public enum Idioma
+    {
+        Portugues = 1,
+        Espanhol = 2,
+        Ingles = 0,
+        Frances = 4
+    }
+}

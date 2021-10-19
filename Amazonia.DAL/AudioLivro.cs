@@ -1,8 +1,10 @@
-namespace Amazonia.DAL{
-
-class AudioLivro : Livro
+namespace Amazonia.DAL
 {
-    public string FormatoFicheiro { get; set; }
 
-    public int DuracaoLivro { get; set; }
-}}
+    class AudioLivro : Livro
+    {
+        public string FormatoFicheiro { get; set; }
+
+        public int DuracaoLivro { get; set; }
+    }
+}

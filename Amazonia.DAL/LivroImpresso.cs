@@ -1,5 +1,5 @@
 namespace Amazonia.DAL{
-    class LivroImpresso:Livro
+    public class LivroImpresso:Livro
 {
     public int QuantidadeDePaginas { get; set; }
 

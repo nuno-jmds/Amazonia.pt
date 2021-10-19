@@ -1,7 +1,7 @@
 using System;
 
 namespace Amazonia.DAL{
-class Cliente
+public class Cliente
 {
     public string Nome { get; set; }
     public Morada Morada { get; set; }
