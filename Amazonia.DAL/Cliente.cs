@@ -1,5 +1,6 @@
 using System;
 
+namespace Amazonia.DAL{
 class Cliente
 {
     public string Nome { get; set; }
@@ -11,4 +12,4 @@ class Cliente
     public DateTime DataNascimento { get; set; }
     public string NumeroContribuinte { get; set; }
 
-}
+}}

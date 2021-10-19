@@ -1,4 +1,5 @@
-public abstract class Livro
+namespace Amazonia.DAL{
+    public abstract class Livro
 {
     public string Nome { get; set; }
     public decimal Preco { get; set; }
@@ -7,4 +8,5 @@ public abstract class Livro
 
     public string Autor { get; set; }
     private Idioma Idioma { get; set; }
+}
 }
