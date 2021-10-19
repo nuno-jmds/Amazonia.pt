@@ -20,6 +20,8 @@ namespace Amazonia.DAL.Repositorio
             var maria = new Cliente { Nome = "Maria", DataNascimento = new System.DateTime(1950, 01, 01) };
             var marta = new Cliente { Nome = "Marta", DataNascimento = new DateTime(2021, 01, 02) };
 
+
+
             ListaCliente.Add(joao);
             ListaCliente.Add(maria);
             ListaCliente.Add(marta);
@@ -38,7 +40,7 @@ namespace Amazonia.DAL.Repositorio
 
         public void Criar(Cliente obj)
         {
-            throw new System.NotImplementedException();
+            ListaCliente.Add(obj);
         }
 
         public Cliente ObterPorNome(string Nome)
