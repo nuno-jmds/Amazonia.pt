@@ -1,10 +1,9 @@
 using System;
 
-namespace Amazonia.DAL
+namespace Amazonia.DAL.Entidades
 {
-    public class Cliente
+    public class Cliente : Entidade
     {
-        public string Nome { get; set; }
         public Morada Morada { get; set; }
 
         public string Username { get; set; }
@@ -12,11 +11,11 @@ namespace Amazonia.DAL
         public string Password { get; set; }
         public DateTime DataNascimento { get; set; }
         public string NumeroContribuinte { get; set; }
-
         public int Idade => DateTime.Now.Year - DataNascimento.Year;
+
         public override string ToString()
         {
-            return $"Nome: {Nome} => Idade: {Idade}";
+            return $"Nome: {Nome} => Idade: {Idade} => Identificador: {Identificador}";
         }
 
     }

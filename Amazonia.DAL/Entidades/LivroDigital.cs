@@ -1,4 +1,4 @@
-namespace Amazonia.DAL
+namespace Amazonia.DAL.Entidades
 {
     public class LivroDigital : Livro
     {
@@ -10,6 +10,11 @@ namespace Amazonia.DAL
         public override decimal ObterPreco()
         {
             return base.ObterPreco() * 0.9M;
+        }
+
+        public override string ToString()
+        {
+            return $"Nome: {Nome} => Tamanho em MB: {TamanhoEmMB} => Identificador: {Identificador}";
         }
 
     }
