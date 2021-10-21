@@ -20,15 +20,22 @@ namespace Amazonia.ConsoleAPP
                 Console.WriteLine(item);
             }
 
+
             do
             {
 
                 var novoCliente = new Cliente();
-                Console.WriteLine("Nome");
+                Console.WriteLine("Nome:");
+
                 novoCliente.Nome = Console.ReadLine();
 
                 repo.Criar(novoCliente);
+
+
             } while (Console.ReadKey().Key != ConsoleKey.Tab);
+
+
+
 
             var listaClientesNovosEAntigos = repo.ObterTodos();
             foreach (var item in listaClientesNovosEAntigos)
