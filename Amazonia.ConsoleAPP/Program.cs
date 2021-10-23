@@ -10,6 +10,23 @@ namespace Amazonia.ConsoleAPP
         static void Main(string[] args)
         {
 
+            // ListarClientes();
+            ListarLivros();
+
+        }
+
+        public static void ListarLivros()
+        {
+            var repoLivros = new RepositorioLivro();
+            var listaLivros = repoLivros.ObterTodos();
+            foreach (var item in listaLivros)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        public static void ListarClientes()
+        {
             var repo = new RepositorioCliente();
             var listaClientes = repo.ObterTodos();
             foreach (var item in listaClientes)
@@ -44,12 +61,6 @@ namespace Amazonia.ConsoleAPP
             var listagemTotal2 = repo.ObterTodos();
             Console.WriteLine($"Data Base contem {listagemTotal2.Count} clientes");
 
-            var repoLivros = new RepositorioLivro();
-            var listaLivros = repoLivros.ObterTodos();
-            foreach (var item in listaLivros)
-            {
-                Console.WriteLine(item);
-            }
             // do
             // {
 

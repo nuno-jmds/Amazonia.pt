@@ -14,7 +14,7 @@ namespace Amazonia.DAL.Entidades
 
         public override string ToString()
         {
-            return $"Nome: {Nome} => Tamanho em MB: {TamanhoEmMB} => Identificador: {Identificador}";
+            return $"Livro Digital: {base.ToString()} => Tamanho em MB: {TamanhoEmMB} ";
         }
 
     }

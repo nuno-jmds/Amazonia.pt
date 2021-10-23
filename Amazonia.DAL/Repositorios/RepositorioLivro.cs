@@ -19,6 +19,38 @@ namespace Amazonia.DAL.Repositorio
             livro1.Nome = "Práticas de Python";
             livro1.TamanhoEmMB = 20;
             ListaLivros.Add(livro1);
+            var lotrImp = new LivroImpresso
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien"
+            };
+            ListaLivros.Add(lotrImp);
+
+            var lotrAud = new AudioLivro
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien",
+                DuracaoLivro = 6,
+                FormatoFicheiro = "mp3"
+            };
+            ListaLivros.Add(lotrAud);
+
+            var lotrEbook = new LivroDigital
+            {
+                Nome = "O Senhor dos Aneis",
+                Autor = "J.R.R. Tolkien",
+                InformacoesLicenca = "1234567",
+                FormatoFicheiro = "PDF",
+                TamanhoEmMB = 20
+            };
+            ListaLivros.Add(lotrEbook);
+
+            var hpImp = new LivroImpresso
+            {
+                Nome = "Harry Potter",
+                Autor = "JK"
+            };
+            ListaLivros.Add(hpImp);
         }
 
         public void Criar(Livro obj)

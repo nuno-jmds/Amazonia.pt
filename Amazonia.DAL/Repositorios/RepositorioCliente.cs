@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Infraestrutura;
 
 namespace Amazonia.DAL.Repositorio
 {
@@ -116,7 +117,11 @@ namespace Amazonia.DAL.Repositorio
             return resultado;
         }
 
-
+        public void GerarRelatorio()
+        {
+            IImpressora impressora= new ImpressoraPapel();
+            impressora.Imprimir();
+        }
     }
 
 
