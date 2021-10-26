@@ -7,7 +7,7 @@ namespace Amazonia.DAL.Entidades
         public string Descricao { get; set; }
 
         public string Autor { get; set; }
-        private Idioma Idioma { get; set; }
+        public Idioma Idioma { get; set; }
 
         public virtual decimal ObterPreco()
         {
