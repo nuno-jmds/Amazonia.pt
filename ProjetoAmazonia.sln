@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.BLL", "Amazonia.BLL\Amazonia.BLL.csproj", "{A0E4CE20-3AC9-4154-8122-5D3A5B4B593B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazonia.BLL", "Amazonia.BLL\Amazonia.BLL.csproj", "{A0E4CE20-3AC9-4154-8122-5D3A5B4B593B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.DAL", "Amazonia.DAL\Amazonia.DAL.csproj", "{D9AFA626-C39A-42C6-B280-6D3A2B4CA1F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazonia.DAL", "Amazonia.DAL\Amazonia.DAL.csproj", "{D9AFA626-C39A-42C6-B280-6D3A2B4CA1F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.WebAPI", "Amazonia.WebAPI\Amazonia.WebAPI.csproj", "{162F9BD4-0BBA-4FFC-B282-957C4185B2F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazonia.WebAPI", "Amazonia.WebAPI\Amazonia.WebAPI.csproj", "{162F9BD4-0BBA-4FFC-B282-957C4185B2F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.WebAPP", "Amazonia.WebAPP\Amazonia.WebAPP.csproj", "{84F6A9BF-4CF7-4856-B949-BC16DD7647DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazonia.WebAPP", "Amazonia.WebAPP\Amazonia.WebAPP.csproj", "{84F6A9BF-4CF7-4856-B949-BC16DD7647DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.ConsoleAPP", "Amazonia.ConsoleAPP\Amazonia.ConsoleAPP.csproj", "{6915CA9A-AC2F-4DC0-BBDB-C8476B036A9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amazonia.ConsoleAPP", "Amazonia.ConsoleAPP\Amazonia.ConsoleAPP.csproj", "{6915CA9A-AC2F-4DC0-BBDB-C8476B036A9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazonia.BLL.Testes", "Amazonia.BLL.Testes\Amazonia.BLL.Testes.csproj", "{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A0E4CE20-3AC9-4154-8122-5D3A5B4B593B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -86,5 +85,23 @@ Global
 		{6915CA9A-AC2F-4DC0-BBDB-C8476B036A9A}.Release|x64.Build.0 = Release|Any CPU
 		{6915CA9A-AC2F-4DC0-BBDB-C8476B036A9A}.Release|x86.ActiveCfg = Release|Any CPU
 		{6915CA9A-AC2F-4DC0-BBDB-C8476B036A9A}.Release|x86.Build.0 = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Debug|x86.Build.0 = Debug|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|x64.ActiveCfg = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|x64.Build.0 = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|x86.ActiveCfg = Release|Any CPU
+		{FA603F4A-5411-4EC1-BDDB-8C3013D18B64}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D3114D8-50C2-4C97-AF6A-96FFF59ED661}
 	EndGlobalSection
 EndGlobal
