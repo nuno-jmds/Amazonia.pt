@@ -50,4 +50,21 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         if: always()
         with:
-          files: TestResults.xml
+          files: |
+            TestResults/*.xml
+            ./TestResults/*.xml
+            ./TestResults/**/*.xml
+            TestResults/*.xml
+            TestRsults/**/*.xml
+            test-results/*.xml
+            test-results/**/*.xml
+            !config.xml
+            /TestResults/TestResults.xml
+            /TestResults/*.xml
+            TestResults/TestResults.xml
+            */*TestResults.xml
+            *TestResults.xml
+            **/*TestResults.xml
+            **/**/*TestResults.xml
+            c:\temp\TestResults.xml
+            c:/temp/TestResults.xml
