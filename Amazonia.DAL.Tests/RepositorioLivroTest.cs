@@ -1,7 +1,10 @@
 using Amazonia.DAL.Entidades;
 using Amazonia.DAL.Repositorio;
+using Amazonia.DAL.Infraestrutura;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Amazonia.DAL.Tests
 {
@@ -64,16 +67,42 @@ namespace Amazonia.DAL.Tests
         public void DeveApagarUmLivroDaLista()
 
         {
+            var repo = new RepositorioLivro();
+            var livros = repo.ObterTodos();
+            var livroAApagar = livros.FirstOrDefault();
+
+            //action
+            var livrosInicialmente = livros.Count;
+            repo.Apagar(livroAApagar);
+            var livrosDepooisDeApagar = livros.Count;
+
+            //assert
+            Assert.IsTrue(livrosInicialmente > livrosDepooisDeApagar);
 
 
         }
 
+#if !DEBUG
+        [Ignore]
+#endif
         [TestMethod]
+        [ExpectedException(typeof(AmazoniaException))]
         public void DeveGerarExceptionQuandoTentarApagarLivroInexistente()
 
-        { 
-        
-        
+        {
+            var repo = new RepositorioLivro();
+            var livros = repo.ObterTodos();
+            var livroInexistente=new LivroDigital();
+           
+
+            //action
+            var livrosInicialmente = livros.Count;
+            repo.Apagar(livroInexistente);
+            var livrosDepooisDeApagar = livros.Count;
+
+            //assert
+            Assert.IsTrue(livrosInicialmente > livrosDepooisDeApagar);
+
         }
 
     }

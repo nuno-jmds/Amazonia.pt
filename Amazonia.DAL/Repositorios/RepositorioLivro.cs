@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Infraestrutura;
 
 namespace Amazonia.DAL.Repositorio
 {
@@ -82,19 +83,26 @@ namespace Amazonia.DAL.Repositorio
 
         public void Apagar(Livro obj)
         {
-            try
-            {
-                if (obj == null)
-                    throw new Exception("Ops");
-                else
-                    System.Console.WriteLine("Valor do objeto [" + obj + "]");
-                System.Console.WriteLine("Cliente a apagar: " + obj);
-                ListaLivros.Remove(obj);
-            }
-            catch
-            {
-                System.Console.WriteLine("Ops, não conheço esse Livro");
-            }
+            if (ListaLivros.Remove(obj) == false)
+                {
+                    throw new AmazoniaException("Falha ao apagar Livro");
+                }
+            //try
+            //{
+            //    if (obj == null)
+            //        throw new Exception("OPS");
+            //    else
+            //        System.Console.WriteLine("Valor do objeto [" + obj + "]");
+            //    System.Console.WriteLine("Cliente a apagar: " + obj);
+            //    if (ListaLivros.Remove(obj) == false)
+            //    {
+            //        throw new Exception("Falha ao apagar Livro");
+            //    }
+            //}
+            //catch
+            //{
+            //    System.Console.WriteLine("Ops, não conheço esse Livro");
+            //}
         }
     }
 
