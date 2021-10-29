@@ -61,7 +61,6 @@ jobs:
             test-results/**/*.xml
             !config.xml
             /TestResults/*.xml
-            TestResults/TestResults.xml
             */*TestResults.xml
             *TestResults.xml
             **/*TestResults.xml
