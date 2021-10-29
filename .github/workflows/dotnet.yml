@@ -60,12 +60,10 @@ jobs:
             test-results/*.xml
             test-results/**/*.xml
             !config.xml
-            /TestResults/TestResults.xml
             /TestResults/*.xml
             TestResults/TestResults.xml
             */*TestResults.xml
             *TestResults.xml
             **/*TestResults.xml
             **/**/*TestResults.xml
-            c:\temp\TestResults.xml
-            c:/temp/TestResults.xml
+
