@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Configuration;
 using Amazonia.DAL.Repositorio;
+using Amazonia.DAL.Utils;
 
 
 namespace Amazonia.ConsoleAPP
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
-            var valorObtidoPeloMetodo = DAL.Utils.Exemplo.ObterValorDoConfig("chaveExemplo");
+            //Ler valores de ficheiro de configuração
+            var valorObtidoPeloMetodo = Exemplo.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
+            Console.WriteLine($"valor obtido pelo método: {valorObtidoPeloMetodo} valor lido diretamente: {chaveExemplo}");
 
             var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];
             var usarRegraNova = Convert.ToBoolean(usarRegraNovaStr);
@@ -28,6 +31,10 @@ namespace Amazonia.ConsoleAPP
 
         }
 
+
+        /// <summary>
+        /// Lista Livros
+        /// </summary>
         public static void ListarLivros()
         {
             var repoLivros = new RepositorioLivro();
@@ -73,31 +80,6 @@ namespace Amazonia.ConsoleAPP
 
             var listagemTotal2 = repo.ObterTodos();
             Console.WriteLine($"Data Base contem {listagemTotal2.Count} clientes");
-
-            // do
-            // {
-
-            //     var novoCliente = new Cliente();
-            //     Console.WriteLine("Nome:");
-
-            //     novoCliente.Nome = Console.ReadLine();
-
-            //     repo.Criar(novoCliente);
-
-
-            // } while (Console.ReadKey().Key != ConsoleKey.Tab);
-
-
-
-
-            // var listaClientesNovosEAntigos = repo.ObterTodos();
-            // foreach (var item in listaClientesNovosEAntigos)
-            // {
-            //     Console.WriteLine(item);
-
-
-
-            // }
 
         }
     }

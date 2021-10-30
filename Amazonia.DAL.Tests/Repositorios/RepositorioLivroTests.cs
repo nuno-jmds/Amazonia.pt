@@ -1,26 +1,28 @@
-using Amazonia.DAL.Entidades;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Amazonia.DAL.Repositorio;
-using Amazonia.DAL.Infraestrutura;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Infraestrutura;
 
-namespace Amazonia.DAL.Tests
+namespace Amazonia.DAL.Repositorio.Tests
 {
-    [TestClass]
-    public class UnitTest1
+    [TestClass()]
+    public class RepositorioLivroTests
     {
         [TestMethod]
         public void DeveCriarUmObjetoDoTipoRepositorioLivro()
         {
 
-                //Arrange
-                RepositorioLivro repositorio;
-                //Act
-                repositorio = new RepositorioLivro();
-                //Assert
-                Assert.IsNotNull(repositorio);
+            //Arrange
+            RepositorioLivro repositorio;
+            //Act
+            repositorio = new RepositorioLivro();
+            //Assert
+            Assert.IsNotNull(repositorio);
 
         }
 
@@ -34,7 +36,7 @@ namespace Amazonia.DAL.Tests
             var minElementos = 1;
             //Act
             repositorio = new RepositorioLivro();
-            livros=repositorio.ObterTodos();
+            livros = repositorio.ObterTodos();
             var quantidadeDeLivrosNoRepositorio = livros.Count;
             //Assert
             Assert.IsNotNull(repositorio);
@@ -92,8 +94,8 @@ namespace Amazonia.DAL.Tests
         {
             var repo = new RepositorioLivro();
             var livros = repo.ObterTodos();
-            var livroInexistente=new LivroDigital();
-           
+            var livroInexistente = new LivroDigital();
+
 
             //action
             var livrosInicialmente = livros.Count;
@@ -104,6 +106,5 @@ namespace Amazonia.DAL.Tests
             Assert.IsTrue(livrosInicialmente > livrosDepooisDeApagar);
 
         }
-
     }
 }
