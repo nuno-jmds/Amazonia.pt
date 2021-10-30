@@ -72,7 +72,7 @@ namespace Amazonia.DAL.Repositorio
             var resultado = ListaLivros
             .Where(x => x.Nome == Nome)
             .OrderByDescending(x => x.Nome)
-            .FirstOrDefault(); ;
+            .FirstOrDefault();
             return resultado;
         }
 
@@ -83,26 +83,10 @@ namespace Amazonia.DAL.Repositorio
 
         public void Apagar(Livro obj)
         {
-            if (ListaLivros.Remove(obj) == false)
+            if (!ListaLivros.Remove(obj))
                 {
                     throw new AmazoniaException("Falha ao apagar Livro");
                 }
-            //try
-            //{
-            //    if (obj == null)
-            //        throw new Exception("OPS");
-            //    else
-            //        System.Console.WriteLine("Valor do objeto [" + obj + "]");
-            //    System.Console.WriteLine("Cliente a apagar: " + obj);
-            //    if (ListaLivros.Remove(obj) == false)
-            //    {
-            //        throw new Exception("Falha ao apagar Livro");
-            //    }
-            //}
-            //catch
-            //{
-            //    System.Console.WriteLine("Ops, não conheço esse Livro");
-            //}
         }
     }
 

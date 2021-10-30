@@ -31,13 +31,13 @@ namespace Amazonia.DAL.Repositorios
             ////Opção1
             //foreach(var item in livros)
             //{
-            //    valorCalculado +=  item.ObterPreco();
+            //    valorCalculado +=  item.ObterPreco()
 
             //}
             ////Opção1
             //foreach (var item in livros)
             //{
-            //    valorCalculado =valorCalculado+ item.ObterPreco();
+            //    valorCalculado =valorCalculado+ item.ObterPreco()
 
             //}
             #endregion

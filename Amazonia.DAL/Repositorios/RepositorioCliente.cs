@@ -13,7 +13,7 @@ namespace Amazonia.DAL.Repositorio
     public class RepositorioCliente : IRepositorio<Cliente>
     {
 
-        private List<Cliente> ListaClientes;
+        private readonly List<Cliente> ListaClientes;
         public RepositorioCliente()
         {
             ListaClientes = new List<Cliente>();
@@ -63,7 +63,7 @@ namespace Amazonia.DAL.Repositorio
             try
             {
                 if (obj == null)
-                    throw new Exception("Ops");
+                    throw new ArgumentNullException("Ops");
                 else
                     System.Console.WriteLine("Valor do objeto [" + obj + "]");
 
@@ -102,7 +102,7 @@ namespace Amazonia.DAL.Repositorio
         {
             System.Console.WriteLine("ObterTodosQueTenhamPeloMenos18AnosEComecePor");
             var resultado = ListaClientes.Where(x => x.Idade >= 18 && x.Nome.StartsWith(letra)).ToList();
-            //var resultado = ListaCliente.Where(x => x.Idade >= 18).Where(x => x.Nome.StartsWith(letra)).ToList();
+            //var resultado = ListaCliente.Where(x => x.Idade >= 18).Where(x => x.Nome.StartsWith(letra)).ToList()
             return resultado;
 
         }
@@ -117,7 +117,7 @@ namespace Amazonia.DAL.Repositorio
             return resultado;
         }
 
-        public void GerarRelatorio()
+        public static void GerarRelatorio()
         {
             IImpressora impressora= new ImpressoraPapel();
             impressora.Imprimir();

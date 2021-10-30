@@ -8,12 +8,12 @@ namespace Amazonia.DAL.Entidades
         public string Nome { get; set; }
 
 
-        public Entidade()
+        protected Entidade()
         {
             Identificador = Guid.NewGuid();
         }
 
-        public Entidade(string nome)
+        protected Entidade(string nome)
         {
             Identificador = Guid.NewGuid();
             Nome = nome;

@@ -13,7 +13,7 @@ namespace Amazonia.DAL.Infraestrutura
         public AmazoniaException(string tipoErro)
         {
             var path = @"D:\Projetos\Amazonia.pt\";
-            if (Directory.Exists(path) == false)
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
