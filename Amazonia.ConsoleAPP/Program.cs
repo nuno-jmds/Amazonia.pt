@@ -9,6 +9,7 @@ namespace Amazonia.ConsoleAPP
     {
         static void Main(string[] args)
         {
+            var valorObtidoPeloMetodo = DAL.Utils.Exemplo.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
 
             var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];

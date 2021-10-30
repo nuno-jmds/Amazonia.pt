@@ -51,7 +51,10 @@ namespace Amazonia.DAL.Entidades
         }
 
 
-
+        /// <summary>
+        /// Imprime Nome e Idade
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"Nome: {Nome} => Idade: {Idade} => Identificador: {Identificador}";

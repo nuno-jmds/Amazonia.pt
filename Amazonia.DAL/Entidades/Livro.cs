@@ -2,7 +2,7 @@ namespace Amazonia.DAL.Entidades
 {
     public abstract class Livro : Entidade
     {
-        public decimal Preco { get; set; }
+        public decimal Preco {protected get; set; }
 
         public string Descricao { get; set; }
 
@@ -13,5 +13,6 @@ namespace Amazonia.DAL.Entidades
         {
             return Preco;
         }
+
     }
 }
