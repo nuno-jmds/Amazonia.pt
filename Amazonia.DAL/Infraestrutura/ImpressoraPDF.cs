@@ -1,6 +1,6 @@
 namespace Amazonia.DAL.Infraestrutura
 {
-    public class ImpressoraPDF : IImpressora
+    public class ImpressoraPdf : IImpressora
     {
         public void Imprimir()
         {
