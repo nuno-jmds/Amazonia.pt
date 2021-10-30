@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Configuration;
 using Amazonia.DAL.Repositorio;
 
 
@@ -9,9 +9,21 @@ namespace Amazonia.ConsoleAPP
     {
         static void Main(string[] args)
         {
+            var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
 
-            // ListarClientes();
-            ListarLivros();
+            var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];
+            var usarRegraNova = Convert.ToBoolean(usarRegraNovaStr);
+
+            //FeatureFlags
+            if (usarRegraNova)
+            {
+                ListarClientes();
+            }
+            else
+            {
+                ListarLivros();
+            }
+
 
         }
 
