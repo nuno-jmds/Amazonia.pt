@@ -17,7 +17,7 @@ namespace Amazonia.DAL.Repositorios
         
         public decimal AplicarDesconto(decimal valorDesconto)
         {
-            var fatorDesconto = 1 - valorDesconto * 0.1M;
+            var fatorDesconto = 1 - valorDesconto * 0.01M;
             var valorCalculado = CalcularPreco();
             return valorCalculado * fatorDesconto;
 

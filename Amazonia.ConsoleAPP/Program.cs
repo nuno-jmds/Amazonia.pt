@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using Amazonia.DAL.Entidades;
 using Amazonia.DAL.Repositorio;
 using Amazonia.DAL.Utils;
 
@@ -18,6 +19,11 @@ namespace Amazonia.ConsoleAPP
             var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];
             var usarRegraNova = Convert.ToBoolean(usarRegraNovaStr);
 
+
+
+
+            Revista();
+
             //FeatureFlags
             if (usarRegraNova)
             {
@@ -28,10 +34,24 @@ namespace Amazonia.ConsoleAPP
                 ListarLivros();
             }
 
+            var valorObtidoPeloMetodo2 = Exemplo.ObterValorDoConfig("diasLancamento");
+            Console.WriteLine(valorObtidoPeloMetodo2);
 
         }
 
 
+
+        public static void Revista() 
+        {
+
+            var revista = new LivrosPeriodicos();
+            revista.Nome = "primeira revista";
+            revista.DataLancamento = new DateTime(2019, 10, 30);
+            revista.Preco = 100;
+            var preco = revista.ObterPreco();
+
+            Console.WriteLine($"Preço da Revista: {preco}");
+        }
         /// <summary>
         /// Lista Livros
         /// </summary>

@@ -96,7 +96,7 @@ namespace Amazonia.DAL.Repositorios.Tests
             var carrinho = new CarrinhoCompras();
             
             var valorDesconto = 50;
-            var valorEsperado = (60 * 0.9M + 60)*(1-valorDesconto*0.1M);
+            var valorEsperado = (60 * 0.9M + 60)*(1-valorDesconto*0.01M);
 
             //act
             carrinho.Cliente = clienteFake;
