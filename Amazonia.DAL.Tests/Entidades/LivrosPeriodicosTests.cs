@@ -11,15 +11,38 @@ namespace Amazonia.DAL.Entidades.Tests
     [TestClass()]
     public class LivrosPeriodicosTests
     {
+        
         [TestMethod()]
-        public void ObterPrecoTest()
+        public void ObterPrecoMenosde30diasTest()
         {
             var revista = new LivrosPeriodicos();
             revista.Nome = "primeira revista";
-            revista.DataLancamento = new DateTime(2019,10,30);
+            revista.DataLancamento = new DateTime(2021,10,30);
             revista.Preco = 100;
             var preco=revista.ObterPreco();
-            Assert.AreEqual(preco,90M);
+            Assert.AreEqual(preco,100M);
+        }
+
+        [TestMethod()]
+        public void ObterPrecoMaisde30diasTest()
+        {
+            var revista = new LivrosPeriodicos();
+            revista.Nome = "primeira revista";
+            revista.DataLancamento = new DateTime(2021, 9, 20);
+            revista.Preco = 100;
+            var preco = revista.ObterPreco();
+            Assert.AreEqual(preco, 80M);
+        }
+
+        [TestMethod()]
+        public void ObterPrecoMaisde60diasTest()
+        {
+            var revista = new LivrosPeriodicos();
+            revista.Nome = "primeira revista";
+            revista.DataLancamento = DateTime.Today.AddDays(-65);
+            revista.Preco = 100;
+            var preco = revista.ObterPreco();
+            Assert.AreEqual(preco, 50M);
         }
     }
 }

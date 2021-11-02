@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Amazonia.DAL\Amazonia.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="testhost.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

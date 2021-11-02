@@ -9,24 +9,46 @@ namespace Amazonia.DAL.Entidades
 {
     public class LivrosPeriodicos:Livro
     {
+        public LivrosPeriodicos()
+        {
+            if (DataLancamento == new DateTime())
+            {
+                DataLancamento = DateTime.Today;
+            }
+        }
+        
         public DateTime DataLancamento { get; set; }
 
 
         public override decimal ObterPreco() {
 
             var precoBase = base.ObterPreco();
-            var valorDesconto = Decimal.Parse(Exemplo.ObterValorDoConfig("descontoLivroPeriodico"));
-            var diasParaDesconto = Int32.Parse(Exemplo.ObterValorDoConfig("diasLancamento"));
+            var promocaoAtiva = Boolean.Parse(Exemplo.ObterValorDoConfig("ativarPromocoes"));
+            if (promocaoAtiva)
+            { 
             
+            var valorMinimoDesconto = Decimal.Parse(Exemplo.ObterValorDoConfig("descontoMinimoLivroPeriodico"));
+            var minimoDiasParaDesconto = Int32.Parse(Exemplo.ObterValorDoConfig("minimoDiasLancamento"));
+           
+
 
             var diasDesdeLancamento=(DateTime.Today - DataLancamento).Days;
             
-            if (diasDesdeLancamento >= diasParaDesconto) 
+            if (diasDesdeLancamento >= minimoDiasParaDesconto) 
             {
-                var valor= precoBase * (1 - valorDesconto * 0.01M);
+                    var valorMaximoDesconto = Decimal.Parse(Exemplo.ObterValorDoConfig("descontoMaximoLivroPeriodico"));
+                    var maximoDiasParaDesconto = Int32.Parse(Exemplo.ObterValorDoConfig("maximoDiasLancamento"));
+                    
+                    //mais de 60 dias
+                    if (diasDesdeLancamento >= maximoDiasParaDesconto)
+                {
+                    var valorDesconto = precoBase * (1 - valorMaximoDesconto * 0.01M);
+                    return valorDesconto;
+                }
+                var valor= precoBase * (1 - valorMinimoDesconto * 0.01M);
                 return valor;
             }
-            
+            }
 
             return precoBase;
         }
