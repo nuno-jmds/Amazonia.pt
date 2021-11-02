@@ -23,12 +23,12 @@ namespace Amazonia.DAL.Entidades
         public override decimal ObterPreco() {
 
             var precoBase = base.ObterPreco();
-            var promocaoAtiva = Boolean.Parse(Exemplo.ObterValorDoConfig("ativarPromocoes"));
+            var promocaoAtiva = Boolean.Parse(AppConfig.ObterValorDoConfig("ativarPromocoes"));
             if (promocaoAtiva)
             { 
             
-            var valorMinimoDesconto = Decimal.Parse(Exemplo.ObterValorDoConfig("descontoMinimoLivroPeriodico"));
-            var minimoDiasParaDesconto = Int32.Parse(Exemplo.ObterValorDoConfig("minimoDiasLancamento"));
+            var valorMinimoDesconto = Decimal.Parse(AppConfig.ObterValorDoConfig("descontoMinimoLivroPeriodico"));
+            var minimoDiasParaDesconto = Int32.Parse(AppConfig.ObterValorDoConfig("minimoDiasLancamento"));
            
 
 
@@ -36,8 +36,8 @@ namespace Amazonia.DAL.Entidades
             
             if (diasDesdeLancamento >= minimoDiasParaDesconto) 
             {
-                    var valorMaximoDesconto = Decimal.Parse(Exemplo.ObterValorDoConfig("descontoMaximoLivroPeriodico"));
-                    var maximoDiasParaDesconto = Int32.Parse(Exemplo.ObterValorDoConfig("maximoDiasLancamento"));
+                    var valorMaximoDesconto = Decimal.Parse(AppConfig.ObterValorDoConfig("descontoMaximoLivroPeriodico"));
+                    var maximoDiasParaDesconto = Int32.Parse(AppConfig.ObterValorDoConfig("maximoDiasLancamento"));
                     
                     //mais de 60 dias
                     if (diasDesdeLancamento >= maximoDiasParaDesconto)

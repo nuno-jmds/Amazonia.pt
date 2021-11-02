@@ -15,7 +15,7 @@ namespace Amazonia.DAL.Utils.Tests
         public void ObterValorDoConfigTest()
         {
 
-            var valorObtidoPeloMetodo = Exemplo.ObterValorDoConfig("chaveExemplo");
+            var valorObtidoPeloMetodo = AppConfig.ObterValorDoConfig("chaveExemplo");
      
             Console.WriteLine($"valor obtido pelo método: {valorObtidoPeloMetodo}");
 

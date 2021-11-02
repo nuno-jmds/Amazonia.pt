@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Amazonia.DAL.Utils
 {
-    public static class Exemplo
+    public static class AppConfig
     {
         public static string ObterValorDoConfig(string chave)
         {

@@ -12,7 +12,7 @@ namespace Amazonia.ConsoleAPP
         static void Main(string[] args)
         {
             //Ler valores de ficheiro de configuração
-            var valorObtidoPeloMetodo = Exemplo.ObterValorDoConfig("chaveExemplo");
+            var valorObtidoPeloMetodo = AppConfig.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
             Console.WriteLine($"valor obtido pelo método: {valorObtidoPeloMetodo} valor lido diretamente: {chaveExemplo}");
 
@@ -34,7 +34,7 @@ namespace Amazonia.ConsoleAPP
                 ListarLivros();
             }
 
-            var valorObtidoPeloMetodo2 = Exemplo.ObterValorDoConfig("diasLancamento");
+            var valorObtidoPeloMetodo2 = AppConfig.ObterValorDoConfig("diasLancamento");
             Console.WriteLine(valorObtidoPeloMetodo2);
 
         }
