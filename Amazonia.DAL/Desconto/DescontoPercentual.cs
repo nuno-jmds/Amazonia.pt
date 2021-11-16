@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Amazonia.DAL.Desconto;
-using Amazonia.DAL.Desconto;
+
 
 namespace Amazonia.DAL.Desconto
 {

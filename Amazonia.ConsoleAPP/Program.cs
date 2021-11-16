@@ -11,6 +11,10 @@ namespace Amazonia.ConsoleAPP
     {
         static void Main(string[] args)
         {
+
+
+
+            /*
             //Ler valores de ficheiro de configuração
             var valorObtidoPeloMetodo = AppConfig.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
@@ -36,7 +40,7 @@ namespace Amazonia.ConsoleAPP
 
             var valorObtidoPeloMetodo2 = AppConfig.ObterValorDoConfig("diasLancamento");
             Console.WriteLine(valorObtidoPeloMetodo2);
-
+            */
         }
 
 
