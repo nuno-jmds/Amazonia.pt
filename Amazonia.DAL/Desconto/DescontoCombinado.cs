@@ -1,4 +1,4 @@
-﻿using Amazonia.DAL.Entidades;
+﻿using Amazonia.DAL.Modelo;
 using System;
 using System.Collections.Generic;
 using System.Linq;

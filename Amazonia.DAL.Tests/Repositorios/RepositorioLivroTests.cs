@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Amazonia.DAL.Entidades;
 using Amazonia.DAL.Infraestrutura;
+using Amazonia.DAL.Modelo;
 
 namespace Amazonia.DAL.Repositorio.Tests
 {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Amazonia.DAL.Entidades;
 using Amazonia.DAL.Desconto;
 using System.Configuration;
+using Amazonia.DAL.Modelo;
 
 namespace Amazonia.DAL.Repositorios.Tests
 {
@@ -199,8 +200,8 @@ namespace Amazonia.DAL.Repositorios.Tests
             livrosFake.Add(new LivroImpresso { Preco = 10, Nome = "Impresso1" });
             livrosFake.Add(new LivroImpresso { Preco = 20, Nome = "Impresso1" });
             livrosFake.Add(new LivroImpresso { Preco = 30, Nome = "Impresso1" });
-            livrosFake.Add(new LivrosPeriodicos { Preco = 100, Nome = "Periodico1", DataLancamento=DateTime.Today.AddDays(-90) });
-            livrosFake.Add(new LivrosPeriodicos { Preco = 100, Nome = "Periodico2", });
+            livrosFake.Add(new LivroPeriodico { Preco = 100, Nome = "Periodico1", DataLancamento=DateTime.Today.AddDays(-90) });
+            livrosFake.Add(new LivroPeriodico { Preco = 100, Nome = "Periodico2", });
             var clienteFake = new Cliente();
             var carrinho = new CarrinhoCompras();
 

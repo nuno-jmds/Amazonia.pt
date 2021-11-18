@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Amazonia.DAL.Desconto;
-using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Modelo;
 using Amazonia.DAL.Repositorio;
 using Amazonia.DAL.Repositorios;
 

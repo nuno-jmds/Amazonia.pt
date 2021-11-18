@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Amazonia.DAL.Modelo;
 
 namespace Amazonia.DAL.Entidades.Tests
 {
@@ -15,7 +16,7 @@ namespace Amazonia.DAL.Entidades.Tests
         [TestMethod()]
         public void ObterPrecoMenosde30diasTest()
         {
-            var revista = new LivrosPeriodicos();
+            var revista = new LivroPeriodico();
             revista.Nome = "primeira revista";
             revista.DataLancamento = new DateTime(2021,10,30);
             revista.Preco = 100;
@@ -26,7 +27,7 @@ namespace Amazonia.DAL.Entidades.Tests
         [TestMethod()]
         public void ObterPrecoMaisde30diasTest()
         {
-            var revista = new LivrosPeriodicos();
+            var revista = new LivroPeriodico();
             revista.Nome = "primeira revista";
             revista.DataLancamento = new DateTime(2021, 9, 20);
             revista.Preco = 100;
@@ -37,7 +38,7 @@ namespace Amazonia.DAL.Entidades.Tests
         [TestMethod()]
         public void ObterPrecoMaisde60diasTest()
         {
-            var revista = new LivrosPeriodicos();
+            var revista = new LivroPeriodico();
             revista.Nome = "primeira revista";
             revista.DataLancamento = DateTime.Today.AddDays(-65);
             revista.Preco = 100;

@@ -1,15 +1,16 @@
 ﻿using Amazonia.DAL.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amazonia.DAL.Entidades
+namespace Amazonia.DAL.Modelo
 {
-    public class LivrosPeriodicos:Livro
+    public class LivroPeriodico:Livro
     {
-        public LivrosPeriodicos()
+        public LivroPeriodico()
         {
             if (DataLancamento == new DateTime())
             {
@@ -17,6 +18,7 @@ namespace Amazonia.DAL.Entidades
             }
         }
         
+        [Required]
         public DateTime DataLancamento { get; set; }
 
 

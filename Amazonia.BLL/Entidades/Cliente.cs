@@ -3,17 +3,9 @@ using System.Linq;
 
 namespace Amazonia.DAL.Entidades
 {
-    public class Cliente : Entidade
+    public class Cliente
     {
-        public Morada Morada { get; set; }
-
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-        public DateTime DataNascimento { get; set; }
-        public string NumeroContribuinte { get; set; }
-        public int Idade => DateTime.Now.Year - DataNascimento.Year;
-
+        
         public string NumeroIdentificacaoFiscal { get; set; }
 
         public bool NifEstaValido()
@@ -55,10 +47,7 @@ namespace Amazonia.DAL.Entidades
         /// Imprime Nome e Idade
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-        {
-            return $"Nome: {Nome} => Idade: {Idade} => Identificador: {Identificador}";
-        }
+       
 
     }
 }

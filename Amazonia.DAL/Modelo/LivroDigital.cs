@@ -1,8 +1,13 @@
-namespace Amazonia.DAL.Entidades
+using System.ComponentModel.DataAnnotations;
+
+namespace Amazonia.DAL.Modelo
 {
     public class LivroDigital : Livro
     {
         public int TamanhoEmMB { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(5)]
         public string FormatoFicheiro { get; set; } //pdf, doc, epub
 
         public string InformacoesLicenca { get; set; }
