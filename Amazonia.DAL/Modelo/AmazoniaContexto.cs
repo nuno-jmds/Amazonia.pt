@@ -29,6 +29,8 @@ namespace Amazonia.DAL.Modelo
             options.UseSqlServer(connectionString);
         }
 
+        public DbSet<Venda> Vendas { get; set; }
+
         //Exemplo SQLITE
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
         //{

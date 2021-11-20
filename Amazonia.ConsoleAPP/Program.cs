@@ -4,7 +4,7 @@ using System.Linq;
 using Amazonia.DAL.Modelo;
 using Amazonia.DAL.Repositorio;
 using Amazonia.DAL.Utils;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Amazonia.ConsoleAPP
 {
@@ -13,26 +13,16 @@ namespace Amazonia.ConsoleAPP
         static void Main(string[] args)
         {
             var ctx = new AmazoniaContexto();
-            //Create
-            //AdicionarClientes(ctx);
-            AdicionarLivros(ctx);
-            //Read
-            var livroEscolhido=ctx.Livros.FirstOrDefault(x => x.Nome.StartsWith("Harry"));
-            Console.WriteLine(livroEscolhido);
-            //Read
-            var primeiroLivroDigital = ctx.LivroDigitals.FirstOrDefault(x => x.TamanhoEmMB==0);
-            Console.WriteLine(primeiroLivroDigital);
-            //Update
-            primeiroLivroDigital.FormatoFicheiro = "PPP";
-            ctx.SaveChanges();
 
-            //Delete
-            var primeiroLivroImpresso = ctx.LivroImpressos.FirstOrDefault();
-            ctx.LivroImpressos.Remove(primeiroLivroImpresso);
-            ctx.SaveChanges();
+            PlayGroundLinq(ctx);
 
 
-            /*
+
+  /*
+            CRUD(ctx);
+
+
+          
             //Ler valores de ficheiro de configuração
             var valorObtidoPeloMetodo = AppConfig.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
@@ -59,6 +49,129 @@ namespace Amazonia.ConsoleAPP
             var valorObtidoPeloMetodo2 = AppConfig.ObterValorDoConfig("diasLancamento");
             Console.WriteLine(valorObtidoPeloMetodo2);
             */
+        }
+
+        private static void PlayGroundLinq(AmazoniaContexto ctx)
+        {
+            //ExemploSelect Fluent API - 4.5 (2008)
+            //Select * from tabela
+            /*
+            var livros = ctx.Livros.Where(livro=>livro.Nome.StartsWith('H')).ToList();
+
+            var senhorDosAneisOuHarryPotter = ctx.Livros.Where(livro => livro.Nome.StartsWith("h") || livro.Nome.StartsWith("l")).ToList();
+
+            var senhorDosAneisOuHarryPotter2 = 
+                ctx.Livros.Where(livro => livro.Nome.StartsWith("h") 
+                || livro.Nome.StartsWith("l"))
+                .ToList();
+
+            throw new NotImplementedException();
+    */
+            // CriacaoNovosClientes(ctx);
+
+            // ProjecaoDadosEspecificos(ctx);
+
+
+            var clientesQueMoramNoPorto = from c in ctx.Clientes
+                                          join m in ctx.Moradas
+                                          on c.Morada.Id equals m.Id
+                                          where m.Localidade == "Porto"
+                                          select new
+                                          {
+                                              c.Nome,
+                                              m.Endereco
+                                          };
+
+            var clienteQueMoramNoPortoFluentAPI = ctx.Clientes.Where(cliente => cliente.Morada.Localidade == "Porto")
+                .Select(cliente => new
+                {
+                    NomeExemplo=cliente.Nome,
+                    MoradaExemplo=cliente.Morada.Endereco
+                });
+            foreach (var item in clienteQueMoramNoPortoFluentAPI)
+            {
+                Console.WriteLine($"Nome Cliente: {item.NomeExemplo}");
+                Console.WriteLine($"Morada Cliente {item.MoradaExemplo}");
+            }
+
+
+            var clienteQueMoramNoPortoSQLRaw = ctx.Clientes
+                .FromSqlRaw("SELECT c.* " +
+                            "FROM clientes c" +
+                            "LEFT JOIN moradas m on c.moradaId=m.id" +
+                            "WHERE m.localidade='PORTO'");
+
+
+
+
+            Console.WriteLine();
+
+        }
+
+        private static void ProjecaoDadosEspecificos(AmazoniaContexto ctx)
+        {
+            var clientesQueMoramNoPorto = ctx.Clientes.Where(cliente => cliente.Morada.Distrito == "Porto").ToList();
+            var dadosEspecificos = clientesQueMoramNoPorto.Select(cliente => new
+            {
+                cliente.Nome,
+                cliente.NumeroIdentificacaoFiscal
+            });
+
+            var dadosEspecificosModificado = clientesQueMoramNoPorto.Select(cliente => new
+            {
+                NomeEmMaisculo = cliente.Nome.ToUpper(),
+                NNIF = cliente.NumeroIdentificacaoFiscal
+            });
+        }
+
+        private static void CriacaoNovosClientes(AmazoniaContexto ctx)
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                var clienteNovo = new Cliente
+                {
+                    DataNascimento = new DateTime(1991, i, i + 5),
+                    Nome = "João da Silva-" + i,
+                    NumeroIdentificacaoFiscal = "12345678" + i,
+                    Username = "joao.silva",
+                    Password = "asd112",
+                    Morada = new Morada
+                    {
+                        CodigoPostal = "370021" + i,
+                        Distrito = "Porto",
+                        Concelho = "Lisboa",
+                        Localidade = "Lisboa",
+                        Endereco = "Rua das Casa nr" + i,
+                        Nome = "Morada Principal"
+                    }
+                };
+
+
+                ctx.Clientes.Add(clienteNovo);
+            }
+
+            ctx.SaveChanges();
+        }
+
+        private static void CRUD(AmazoniaContexto ctx)
+        {
+            //Create
+            //AdicionarClientes(ctx);
+            AdicionarLivros(ctx);
+            //Read
+            var livroEscolhido = ctx.Livros.FirstOrDefault(x => x.Nome.StartsWith("Harry"));
+            Console.WriteLine(livroEscolhido);
+            //Read
+            var primeiroLivroDigital = ctx.LivroDigitals.FirstOrDefault(x => x.TamanhoEmMB == 0);
+            Console.WriteLine(primeiroLivroDigital);
+            //Update
+            primeiroLivroDigital.FormatoFicheiro = "PPP";
+            ctx.SaveChanges();
+
+            //Delete
+            var primeiroLivroImpresso = ctx.LivroImpressos.FirstOrDefault();
+            ctx.LivroImpressos.Remove(primeiroLivroImpresso);
+            ctx.SaveChanges();
         }
 
         private static void AdicionarLivros(AmazoniaContexto ctx)
