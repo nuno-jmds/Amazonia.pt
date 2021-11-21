@@ -4,6 +4,10 @@ namespace Amazonia.DAL.Modelo
 {
     public class LivroDigital : Livro
     {
+        public LivroDigital()
+        {
+            TipoDeLivro = "Livro Digital";
+        }
         public int TamanhoEmMB { get; set; }
         [Required]
         [MinLength(3)]
@@ -12,7 +16,10 @@ namespace Amazonia.DAL.Modelo
 
         public string InformacoesLicenca { get; set; }
 
-        public override decimal ObterPreco()
+
+
+
+            public override decimal ObterPreco()
         {
             return base.ObterPreco() * 0.9M;
         }

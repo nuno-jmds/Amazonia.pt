@@ -14,6 +14,8 @@ namespace Amazonia.DAL.Modelo
         public string Autor { get; set; }
         public Idioma Idioma { get; set; }
 
+        public string TipoDeLivro { get; set; }
+
         public virtual decimal ObterPreco()
         {
             return Preco;

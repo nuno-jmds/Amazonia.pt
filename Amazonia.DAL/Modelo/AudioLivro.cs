@@ -4,6 +4,11 @@ namespace Amazonia.DAL.Modelo
 { 
     public class AudioLivro : Livro
     {
+        public AudioLivro()
+        {
+            TipoDeLivro = "Audio Livro";
+        }
+
         [Required]
         [MinLength(3)]
         [MaxLength(5)]

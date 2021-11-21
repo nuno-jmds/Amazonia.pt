@@ -5,6 +5,11 @@ namespace Amazonia.DAL.Modelo
 {
     public class LivroImpresso : Livro
     {
+
+        public LivroImpresso()
+        {
+            TipoDeLivro = "Livro Impresso";
+        }
         public int QuantidadeDePaginas { get; set; }
 
         ///Dimensões em centimetros

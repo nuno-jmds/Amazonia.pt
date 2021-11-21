@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Amazonia.DAL.Modelo;
@@ -12,17 +13,36 @@ namespace Amazonia.ConsoleAPP
     {
         static void Main(string[] args)
         {
+            //LeituraFicheiroDeConfiguracao();
+
             var ctx = new AmazoniaContexto();
 
-            PlayGroundLinq(ctx);
+            //FluentApiExamples(ctx);
 
+            LinqExamples(ctx);
 
+            //SqlRowExamples(ctx);
 
-  /*
-            CRUD(ctx);
+            #region Ações de Crud
+            //Create
+            //CriacaoNovosClientes(ctx,100);
+            //CriacaoNovosLivros(ctx,50);
 
+            //Read
+            //LeituraDeClientesEMoradas(ctx);
+            //LeituraDeLivros(ctx);
 
-          
+            //Update
+            //AtualizarBaseDeDados(ctx);
+
+            //Delete
+            //DeleteClienteDaBaseDeDados(ctx);
+            #endregion
+
+        }
+
+        private static void LeituraFicheiroDeConfiguracao()
+        {
             //Ler valores de ficheiro de configuração
             var valorObtidoPeloMetodo = AppConfig.ObterValorDoConfig("chaveExemplo");
             var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
@@ -31,86 +51,37 @@ namespace Amazonia.ConsoleAPP
             var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];
             var usarRegraNova = Convert.ToBoolean(usarRegraNovaStr);
 
-
-
-
-            Revista();
-
             //FeatureFlags
             if (usarRegraNova)
             {
-                ListarClientes();
+                Console.WriteLine("usarRegraNova True");
             }
             else
             {
-                ListarLivros();
+                Console.WriteLine("usarRegraNova False");
             }
 
             var valorObtidoPeloMetodo2 = AppConfig.ObterValorDoConfig("diasLancamento");
             Console.WriteLine(valorObtidoPeloMetodo2);
-            */
         }
 
-        private static void PlayGroundLinq(AmazoniaContexto ctx)
+
+        private static void FluentApiExamples(AmazoniaContexto ctx)
         {
-            //ExemploSelect Fluent API - 4.5 (2008)
-            //Select * from tabela
-            /*
-            var livros = ctx.Livros.Where(livro=>livro.Nome.StartsWith('H')).ToList();
-
-            var senhorDosAneisOuHarryPotter = ctx.Livros.Where(livro => livro.Nome.StartsWith("h") || livro.Nome.StartsWith("l")).ToList();
-
-            var senhorDosAneisOuHarryPotter2 = 
-                ctx.Livros.Where(livro => livro.Nome.StartsWith("h") 
-                || livro.Nome.StartsWith("l"))
-                .ToList();
-
-            throw new NotImplementedException();
-    */
-            // CriacaoNovosClientes(ctx);
-
-            // ProjecaoDadosEspecificos(ctx);
-
-
-            var clientesQueMoramNoPorto = from c in ctx.Clientes
-                                          join m in ctx.Moradas
-                                          on c.Morada.Id equals m.Id
-                                          where m.Localidade == "Porto"
-                                          select new
-                                          {
-                                              c.Nome,
-                                              m.Endereco
-                                          };
-
             var clienteQueMoramNoPortoFluentAPI = ctx.Clientes.Where(cliente => cliente.Morada.Localidade == "Porto")
-                .Select(cliente => new
-                {
-                    NomeExemplo=cliente.Nome,
-                    MoradaExemplo=cliente.Morada.Endereco
-                });
+                    .Select(cliente => new
+                    {
+                        NomeExemplo = cliente.Nome,
+                        MoradaExemplo = cliente.Morada.Endereco
+                    });
             foreach (var item in clienteQueMoramNoPortoFluentAPI)
             {
                 Console.WriteLine($"Nome Cliente: {item.NomeExemplo}");
                 Console.WriteLine($"Morada Cliente {item.MoradaExemplo}");
             }
 
-
-            var clienteQueMoramNoPortoSQLRaw = ctx.Clientes
-                .FromSqlRaw("SELECT c.* " +
-                            "FROM clientes c" +
-                            "LEFT JOIN moradas m on c.moradaId=m.id" +
-                            "WHERE m.localidade='PORTO'");
-
-
-
-
-            Console.WriteLine();
-
-        }
-
-        private static void ProjecaoDadosEspecificos(AmazoniaContexto ctx)
-        {
             var clientesQueMoramNoPorto = ctx.Clientes.Where(cliente => cliente.Morada.Distrito == "Porto").ToList();
+
             var dadosEspecificos = clientesQueMoramNoPorto.Select(cliente => new
             {
                 cliente.Nome,
@@ -122,30 +93,106 @@ namespace Amazonia.ConsoleAPP
                 NomeEmMaisculo = cliente.Nome.ToUpper(),
                 NNIF = cliente.NumeroIdentificacaoFiscal
             });
+
+        }
+        private static void LinqExamples(AmazoniaContexto ctx) 
+        {
+            //IQueryable Cliente
+            var todosOsClientes = from cliente in ctx.Clientes
+                                  select cliente;
+            //IQueryable Cliente
+            var todosOsClientesDoPorto = from cliente in ctx.Clientes
+                                         where cliente.Morada.Distrito == "Porto"
+                                         select cliente;
+
+            //IQueryable Cliente
+            var todosOsClientesDoPortoOuLisboa  = from cliente in ctx.Clientes
+                                         where (cliente.Morada.Distrito == "Porto"
+                                         || cliente.Morada.Distrito=="Lisboa")
+                                         select cliente;
+
+            //IQueryable Cliente
+            var todosOsClientesOrdenadosPorNome = from cliente in ctx.Clientes
+                                                  orderby cliente.Nome ascending
+                                                  select cliente;
+
+            // queryCustomersByCity is an IEnumerable<IGrouping<string, Customer>>
+            var GrupoClientePorCidade = ctx.Clientes.Include(cliente => cliente.Morada).AsEnumerable().GroupBy(cliente=>cliente.Morada.Distrito);
+            
+            var GrupoClientePorCidade1 = from cliente in ctx.Clientes
+                                        group  cliente  by cliente.Password;
+
+            foreach (var group in GrupoClientePorCidade)
+            {
+
+                //Console.WriteLine($"{group.Key} - {group.Count()}");
+            }
+
+
+            ////IQueryable Cliente
+            var clientesQueMoramNoPorto = from cliente in ctx.Clientes
+                                          join morada in ctx.Moradas
+                                          on cliente.Morada.Id equals morada.Id
+                                          where morada.Localidade == "Porto"
+                                          select new
+                                          {
+                                              cliente.Nome,
+                                              morada.Endereco
+                                          };
+
+            foreach (var cliente in clientesQueMoramNoPorto)
+            {
+
+                Console.WriteLine($"{cliente.Nome} - {cliente.Endereco}");
+
+            }
         }
 
-        private static void CriacaoNovosClientes(AmazoniaContexto ctx)
+        private static void SqlRowExamples(AmazoniaContexto ctx)
         {
-            for (int i = 1; i < 10; i++)
+            var clienteQueMoramNoPortoSQLRaw = ctx.Clientes
+                    .FromSqlRaw("SELECT c.* " +
+                                "FROM clientes c" +
+                                "LEFT JOIN moradas m on c.moradaId=m.id" +
+                                "WHERE m.localidade='PORTO'");
+        }
+
+        //Ações de CRUD
+        #region Ações de CRUD
+
+        //Create
+        #region Criação De Dados Na Base De Dados
+        private static void CriacaoNovosClientes(AmazoniaContexto ctx,int quantidade)
+        {
+
+            var NomesProprios = new List<string> {"Ana","Maria","Joana","Adriana","João","Pedro","Vitor","Ricardo","André","Liliana","Catarina","Miguel","Francisco","Vitória" };
+            var Sobrenomes = new List<string> { "Marques", "Alves", "Antunes", "Saraiva", "Costa", "Vitorino", "Santos", "Pereira", "Oliveira", "Castanheira" };
+            var Distritos = new List<string> { "Aveiro","Lisboa","Porto","Viseu","Algarve","Coimbra","Leiria","Vila Real","Bragança"};
+            
+
+            for (int i = 1; i < quantidade; i++)
             {
+
+                var primeiroNome = NomesProprios[new Random().Next(NomesProprios.Count)];
+                var segundoNome = Sobrenomes[new Random().Next(Sobrenomes.Count)];
+                var cidade = Distritos[new Random().Next(Distritos.Count)];
                 var clienteNovo = new Cliente
                 {
-                    DataNascimento = new DateTime(1991, i, i + 5),
-                    Nome = "João da Silva-" + i,
-                    NumeroIdentificacaoFiscal = "12345678" + i,
-                    Username = "joao.silva",
-                    Password = "asd112",
+                    DataNascimento = new DateTime(new Random().Next(1950, 2015), new Random().Next(1, 12), new Random().Next(1, 28)),
+                    Nome = $"{primeiroNome} {segundoNome}",
+                    NumeroIdentificacaoFiscal = $"{new Random().Next(200000000, 299999999)}",
+                    Username = $"{primeiroNome}.{segundoNome}",
+                    Password = "password",
                     Morada = new Morada
                     {
-                        CodigoPostal = "370021" + i,
-                        Distrito = "Porto",
-                        Concelho = "Lisboa",
-                        Localidade = "Lisboa",
-                        Endereco = "Rua das Casa nr" + i,
+                        CodigoPostal = "3700111",
+                        Distrito = $"{cidade}",
+                        Concelho = $"{cidade}",
+                        Localidade = $"{cidade}",
+                        Endereco = "Rua nr" + i,
                         Nome = "Morada Principal"
                     }
                 };
-
 
                 ctx.Clientes.Add(clienteNovo);
             }
@@ -153,152 +200,127 @@ namespace Amazonia.ConsoleAPP
             ctx.SaveChanges();
         }
 
-        private static void CRUD(AmazoniaContexto ctx)
+        private static void CriacaoNovosLivros(AmazoniaContexto ctx, int quantidade)
         {
-            //Create
-            //AdicionarClientes(ctx);
-            AdicionarLivros(ctx);
-            //Read
-            var livroEscolhido = ctx.Livros.FirstOrDefault(x => x.Nome.StartsWith("Harry"));
-            Console.WriteLine(livroEscolhido);
-            //Read
-            var primeiroLivroDigital = ctx.LivroDigitals.FirstOrDefault(x => x.TamanhoEmMB == 0);
-            Console.WriteLine(primeiroLivroDigital);
-            //Update
-            primeiroLivroDigital.FormatoFicheiro = "PPP";
-            ctx.SaveChanges();
+            var nomes = new List<string> { "Dom Casmurro", "O Bandolim do Capitão Corelli", "O Conde de Monte Cristo", "Um estudo em vermelho", "O Processo", "Cem anos de solidão", "O Coração das Trevas", "Eu, Robô", "O Senhor dos Anéis", "Gerra e Paz" };
+            var autores = new List<string> { "Leo Tolstói", "J.R.R. Tolkien", "Isaac Asimov", "Joseph Conrad", "Gabriel García Márquez", "Franz Kafka", "Arthur Conan Doyle", "Alexandre Dumas", "Louis de Bernières", "Machado de Assis", "Antoine de Saint-Exupéry" };
 
-            //Delete
-            var primeiroLivroImpresso = ctx.LivroImpressos.FirstOrDefault();
-            ctx.LivroImpressos.Remove(primeiroLivroImpresso);
-            ctx.SaveChanges();
-        }
-
-        private static void AdicionarLivros(AmazoniaContexto ctx)
-        {
-            var livroDigital = new LivroDigital
+            for (var i = 0; i < quantidade; i++)
             {
-                Nome = "Harry Potter",
-                Autor = "JK",
-                Descricao = "Livro HP",
-                FormatoFicheiro = "PDF",
-                Idioma = DAL.Idioma.Portugues,
-                InformacoesLicenca = "",
-                Preco = 100
+                var livroDigital = new LivroDigital
+                {
+                    Nome = nomes[new Random().Next(nomes.Count)],
+                    Autor = autores[new Random().Next(autores.Count)],
+                    Descricao = "Livro Digital",
+                    FormatoFicheiro = "PDF",
+                    Idioma = DAL.Idioma.Portugues,
+                    InformacoesLicenca = "Sem informação",
+                    Preco = new Random().Next(30, 100)
 
-            };
-            var livroAudio = new AudioLivro
-            {
-                Nome = "Harry Potter 2",
-                Autor = "JK",
-                Descricao = "Livro HP",
-                FormatoFicheiro = "WMA",
-                Idioma = DAL.Idioma.Portugues,
-                Preco = 100
+                };
+                var livroAudio = new AudioLivro
+                {
+                    Nome = nomes[new Random().Next(nomes.Count)],
+                    Autor = autores[new Random().Next(autores.Count)],
+                    Descricao = "Audio Livro",
+                    FormatoFicheiro = "WMA",
+                    Idioma = DAL.Idioma.Portugues,
+                    Preco = new Random().Next(25, 90)
 
-            };
-            var livroImpresso = new LivroImpresso
-            {
-                Nome = "Harry Potter Impresso",
-                Autor = "JK",
-                Descricao = "Livro harry potter",
-                Idioma = DAL.Idioma.Portugues,
-                Preco = 100,
-                Altura = 10,
-                Largura = 10,
-                Profundidade = 10
-            };
+                };
+                var livroImpresso = new LivroImpresso
+                {
+                    Nome = nomes[new Random().Next(nomes.Count)],
+                    Autor = autores[new Random().Next(autores.Count)],
+                    Descricao = "Livro Impresso",
+                    Idioma = DAL.Idioma.Portugues,
+                    Preco = new Random().Next(35, 100),
+                    Altura = new Random().Next(15, 20),
+                    Largura = new Random().Next(10, 15),
+                    Profundidade = new Random().Next(5, 15)
+                };
 
-            ctx.Add(livroImpresso);
-
-            ctx.Add(livroAudio);
-            ctx.Add(livroDigital);
-
-            ctx.Add(livroImpresso);
-
-            ctx.Add(livroAudio);
-            ctx.Add(livroDigital);
-
-            ctx.Add(livroImpresso);
-
-            ctx.Add(livroAudio);
-            ctx.Add(livroDigital);
+                var livroPeriodico = new LivroPeriodico
+                {
+                    Nome = nomes[new Random().Next(nomes.Count)],
+                    Autor = autores[new Random().Next(autores.Count)],
+                    Descricao = "Revista",
+                    Idioma = DAL.Idioma.Portugues,
+                    Preco = new Random().Next(35, 100),
+                    DataLancamento = new DateTime(new Random().Next(1950, 2015), new Random().Next(1, 12), new Random().Next(1, 28))
+                };
+                ctx.Add(livroAudio);
+                ctx.Add(livroDigital);
+                ctx.Add(livroImpresso);
+                ctx.Add(livroPeriodico);
+            }
             ctx.SaveChanges();
         }
+        #endregion
 
-        private static void AdicionarClientes(AmazoniaContexto ctx)
+        //Read
+        #region Leitura de Dados da Base de Dados
+        private static void LeituraDeClientesEMoradas(AmazoniaContexto ctx)
         {
-            ctx.Clientes.Add(new DAL.Modelo.Cliente
+            //Load Client + Morada
+            var listaDeClientes = ctx.Clientes.Include(cliente=>cliente.Morada);
+            foreach (var cliente in listaDeClientes)
             {
-                Username = "Nuno33",
-                DataNascimento = new DateTime(1021, 12, 21),
-                Nome = "Nuno ",
-                NumeroIdentificacaoFiscal = "215214512",
-                Password = "senha"
-            });
+                //Console.WriteLine($"Nome do Cliente: {cliente.Nome} \n Morada do Cliente: {cliente.Morada.Distrito}");
+            } 
+        }
+
+        private static void LeituraDeLivros(AmazoniaContexto ctx)
+        {
+            //Load Livros
+            var listaDeLivros = ctx.Livros;
+            foreach (var livro in listaDeLivros)
+            {
+                //Console.WriteLine($"Nome do Livro: {livro.Nome}\n Tipo de Livro: {livro.GetType()}");
+            }
+
+            //Load Livros Digitais
+            var listaDeLivrosDigitais = ctx.Livros.Where( livro=> livro.TipoDeLivro == "Livro Digital" );
+            foreach (var livro in listaDeLivrosDigitais)
+            {
+                //Console.WriteLine($"Nome do Livro: {livro.Nome}\n Tipo de Livro: {livro.GetType()}");
+            }
+        }
+        #endregion
+
+        //Update
+        #region Update de Dados na Base de Dados
+        private static void AtualizarBaseDeDados(AmazoniaContexto ctx)
+        {
+
+            //Load Client + Morada
+            var listaDeClientes = ctx.Clientes.Where(cliente=>cliente.Nome.StartsWith("A"));
+            foreach (var cliente in listaDeClientes)
+            {
+                Console.WriteLine($"Nome do Cliente: {cliente.Nome} Password:{cliente.Password}");
+                //Alterar password
+                cliente.Password = "alterada";
+            }
+            //Guardar alterações
             ctx.SaveChanges();
         }
+        #endregion
 
-        public static void Revista() 
+        //Delete
+        #region Delete de Dados na Base de Dados
+        private static void DeleteClienteDaBaseDeDados(AmazoniaContexto ctx)
         {
 
-            var revista = new LivroPeriodico();
-            revista.Nome = "primeira revista";
-            revista.DataLancamento = new DateTime(2019, 10, 30);
-            revista.Preco = 100;
-            var preco = revista.ObterPreco();
-
-            Console.WriteLine($"Preço da Revista: {preco}");
+            //Load Client
+            var listaDeClientes = ctx.Clientes.Where(cliente => cliente.Nome.StartsWith("Joana"));
+            foreach (var cliente in listaDeClientes)
+            {
+                Console.WriteLine($"Nome do Cliente: {cliente.Nome}");
+            }
+            ctx.Clientes.Remove(listaDeClientes.FirstOrDefault());
+            ctx.SaveChanges();
         }
-        /// <summary>
-        /// Lista Livros
-        /// </summary>
-        public static void ListarLivros()
-        {
-            var repoLivros = new RepositorioLivro();
-            var listaLivros = repoLivros.ObterTodos();
-            foreach (var item in listaLivros)
-            {
-                Console.WriteLine(item);
-            }
-        }
-
-        public static void ListarClientes()
-        {
-            var repo = new RepositorioCliente();
-            var listaClientes = repo.ObterTodos();
-            foreach (var item in listaClientes)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("Consulta lista com M");
-            var listaClientesM = repo.ObterTodosQueComecemPor("M");
-            foreach (var item in listaClientesM)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("Consulta lista com maiores de 18");
-            var listaClientes18 = repo.ObterTodosQueTenhamPeloMenos18Anos();
-            foreach (var item in listaClientes18)
-            {
-                Console.WriteLine(item);
-            }
-
-            Console.WriteLine("Obter por nome");
-            var joao = repo.ObterPorNome("João");
-            var clienteNovo = repo.Atualizar(joao.Nome, "Joao da Silva");
-            System.Console.WriteLine(clienteNovo);
-
-            var listagemTotal = repo.ObterTodos();
-            Console.WriteLine($"Data Base contem {listagemTotal.Count} clientes");
-
-            repo.Apagar(joao);
-
-            var listagemTotal2 = repo.ObterTodos();
-            Console.WriteLine($"Data Base contem {listagemTotal2.Count} clientes");
-
-        }
+        #endregion
+        #endregion
     }
 }

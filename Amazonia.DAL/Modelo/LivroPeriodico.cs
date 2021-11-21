@@ -12,6 +12,7 @@ namespace Amazonia.DAL.Modelo
     {
         public LivroPeriodico()
         {
+            TipoDeLivro = "Livro Periodico";
             if (DataLancamento == new DateTime())
             {
                 DataLancamento = DateTime.Today;
