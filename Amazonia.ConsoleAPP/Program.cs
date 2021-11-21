@@ -97,25 +97,32 @@ namespace Amazonia.ConsoleAPP
         }
         private static void LinqExamples(AmazoniaContexto ctx) 
         {
+            ///#########################################################################################################################################
+            /// 
             //IQueryable Cliente
             var todosOsClientes = from cliente in ctx.Clientes
                                   select cliente;
+            ///#########################################################################################################################################
+            /// 
             //IQueryable Cliente
             var todosOsClientesDoPorto = from cliente in ctx.Clientes
                                          where cliente.Morada.Distrito == "Porto"
                                          select cliente;
-
+            ///#########################################################################################################################################
+            /// 
             //IQueryable Cliente
             var todosOsClientesDoPortoOuLisboa  = from cliente in ctx.Clientes
                                          where (cliente.Morada.Distrito == "Porto"
                                          || cliente.Morada.Distrito=="Lisboa")
                                          select cliente;
-
+            ///#########################################################################################################################################
+            /// 
             //IQueryable Cliente
             var todosOsClientesOrdenadosPorNome = from cliente in ctx.Clientes
                                                   orderby cliente.Nome ascending
                                                   select cliente;
-
+            ///#########################################################################################################################################
+            /// 
             // queryCustomersByCity is an IEnumerable<IGrouping<string, Customer>>
             var GrupoClientePorCidade = ctx.Clientes.Include(cliente => cliente.Morada).AsEnumerable().GroupBy(cliente=>cliente.Morada.Distrito);
             
@@ -128,7 +135,8 @@ namespace Amazonia.ConsoleAPP
                 //Console.WriteLine($"{group.Key} - {group.Count()}");
             }
 
-
+            ///#########################################################################################################################################
+            /// 
             ////IQueryable Cliente
             var clientesQueMoramNoPorto = from cliente in ctx.Clientes
                                           join morada in ctx.Moradas
@@ -143,18 +151,60 @@ namespace Amazonia.ConsoleAPP
             foreach (var cliente in clientesQueMoramNoPorto)
             {
 
-                Console.WriteLine($"{cliente.Nome} - {cliente.Endereco}");
+                //Console.WriteLine($"{cliente.Nome} - {cliente.Endereco}");
 
             }
+
+            ///#########################################################################################################################################
+            /// 
+            ////IQueryable Cliente
+            var clientesQueNasceramEm2000 = from cliente in ctx.Clientes
+                                          join morada in ctx.Moradas
+                                          on cliente.Morada.Id equals morada.Id
+                                          where cliente.DataNascimento > new DateTime(2000,01,01) && cliente.DataNascimento < new DateTime(2000, 12, 31)
+                                            select new
+                                          {
+                                              cliente.Nome,
+                                              morada.Endereco,
+                                              cliente.DataNascimento
+                                          };
+
+            foreach (var cliente in clientesQueNasceramEm2000)
+            {
+
+               // Console.WriteLine($"{cliente.Nome}      - {cliente.Endereco}        -{cliente.DataNascimento} ");
+
+            }
+
+            ///#########################################################################################################################################
+            /// 
+            var livrosPeriodicos = from Livros in ctx.LivroPeriodicos
+                                   select Livros;
+            foreach (var livro in livrosPeriodicos)
+            {
+
+                // Console.WriteLine($"{livro.Nome}      - {livro.TipoDeLivro}        -{livro.Idioma} ");
+
+            }
+
+
         }
 
         private static void SqlRowExamples(AmazoniaContexto ctx)
         {
-            var clienteQueMoramNoPortoSQLRaw = ctx.Clientes
-                    .FromSqlRaw("SELECT c.* " +
-                                "FROM clientes c" +
-                                "LEFT JOIN moradas m on c.moradaId=m.id" +
-                                "WHERE m.localidade='PORTO'");
+
+            //Com BUG
+            var clienteQueMoramNoPortoSQLRaw = ctx.Clientes.FromSqlRaw("SELECT * " +
+                                "FROM Clientes" +
+                                "LEFT JOIN Moradas on Clientes.MoradaId=Moradas.Id" +
+                                "WHERE Moradas.Localidade='PORTO'");
+
+            foreach(var cliente in clienteQueMoramNoPortoSQLRaw)
+            {
+                Console.WriteLine(cliente.Nome);
+
+            }
+           
         }
 
         //Ações de CRUD
@@ -284,6 +334,12 @@ namespace Amazonia.ConsoleAPP
             foreach (var livro in listaDeLivrosDigitais)
             {
                 //Console.WriteLine($"Nome do Livro: {livro.Nome}\n Tipo de Livro: {livro.GetType()}");
+            }
+            //Load Livros Digitais
+            var listaDeLivrosAudio = ctx.AudioLivros.Where(livro => livro.Autor.StartsWith("Ant"));
+            foreach (var livro in listaDeLivrosAudio)
+            {
+                Console.WriteLine($"Nome do Livro: {livro.Nome}\n Tipo de Livro: {livro.GetType()}");
             }
         }
         #endregion
