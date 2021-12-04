@@ -17,7 +17,7 @@ namespace Amazonia.ConsoleAPP
 
             var ctx = new AmazoniaContexto();
 
-            //FluentApiExamples(ctx);
+            FluentApiExamples(ctx);
 
             LinqExamples(ctx);
 
@@ -76,8 +76,8 @@ namespace Amazonia.ConsoleAPP
                     });
             foreach (var item in clienteQueMoramNoPortoFluentAPI)
             {
-                Console.WriteLine($"Nome Cliente: {item.NomeExemplo}");
-                Console.WriteLine($"Morada Cliente {item.MoradaExemplo}");
+                //Console.WriteLine($"Nome Cliente: {item.NomeExemplo}");
+                //Console.WriteLine($"Morada Cliente {item.MoradaExemplo}");
             }
 
             var clientesQueMoramNoPorto = ctx.Clientes.Where(cliente => cliente.Morada.Distrito == "Porto").ToList();
@@ -93,6 +93,61 @@ namespace Amazonia.ConsoleAPP
                 NomeEmMaisculo = cliente.Nome.ToUpper(),
                 NNIF = cliente.NumeroIdentificacaoFiscal
             });
+
+
+            ///#########################################################################################################################################
+            /// 
+            var contagemGeral = ctx.Livros.Count();
+
+            ///#########################################################################################################################################
+            /// 
+            var contagemAgrupadoPorNome = ctx.Livros
+                .AsEnumerable()
+                .GroupBy(livro=>livro.Nome)
+                .Select(x=>new {
+                NomeLivro=x.FirstOrDefault().Nome,
+                Contagem=x.Count()
+                });
+            foreach (var livros in contagemAgrupadoPorNome)
+            {
+
+                //Console.WriteLine($"grupos { livros.Contagem  }   { livros.NomeLivro  }   " );
+            }
+
+            ///#########################################################################################################################################
+            /// 
+            var contagemAgrupadoPorNomeEAutor = ctx.Livros
+                .AsEnumerable()
+                .GroupBy(livro => new{ livro.Nome, livro.Autor})
+                .Select(x => new {
+                    NomeLivro = x.FirstOrDefault().Nome,
+                    Contagem = x.Count(),
+
+                    NomeAutor= x.FirstOrDefault().Autor
+
+                });
+            foreach (var livros in contagemAgrupadoPorNomeEAutor)
+            {
+
+                //Console.WriteLine($"grupos { livros.Contagem  }   { livros.NomeLivro  }  { livros.NomeAutor  } ");
+            }
+
+            ///#########################################################################################################################################
+
+            var somatorioVolumeDosLivros = ctx.LivroImpressos
+                .AsEnumerable()
+                .GroupBy(livro =>  livro.Nome)
+                .Select(x => new {
+                    NomeLivro = x.FirstOrDefault().Nome,
+                    Somatorio = x.Sum(x=>x.ObterVolume()),
+                    Media=x.Average(x=>x.ObterVolume())
+
+                });
+            foreach (var livros in somatorioVolumeDosLivros)
+            {
+
+                //Console.WriteLine($"grupos { livros.Somatorio  }   { livros.NomeLivro  }  ");
+            }
 
         }
         private static void LinqExamples(AmazoniaContexto ctx) 
@@ -186,6 +241,7 @@ namespace Amazonia.ConsoleAPP
                 // Console.WriteLine($"{livro.Nome}      - {livro.TipoDeLivro}        -{livro.Idioma} ");
 
             }
+
 
 
         }
