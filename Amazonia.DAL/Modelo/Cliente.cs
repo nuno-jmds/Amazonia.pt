@@ -18,7 +18,7 @@ namespace Amazonia.DAL.Modelo
         [EmailAddress]
         public string Username { get; set; }
         [Required]
-        [MinLength(32),MaxLength(32)]
+        [MinLength(8),MaxLength(32)]
         public string Password { get; set; }
         [Required]
         public DateTime DataNascimento { get; set; }

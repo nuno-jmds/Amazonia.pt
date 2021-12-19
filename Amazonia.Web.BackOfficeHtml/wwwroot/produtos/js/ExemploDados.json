@@ -1,0 +1,28 @@
+﻿{
+    "data": [
+        {
+            "id": "1",
+            "nome": "Harry Potter",
+            "autor": "JK",
+            "tipo": "Livro Físico",
+            "idioma": "Português",
+            "quantidade": "20"            
+        },
+        {
+            "id": "2",
+            "nome": "Senhor dos Anéis",
+            "autor": "JRR Tolkien",
+            "tipo": "Livro Físico",
+            "idioma": "Espanhol",
+            "quantidade": "30"            
+        },
+        {
+            "id": "3",
+            "nome": "O Silmarilion",
+            "autor": "JRR Tolkien",
+            "tipo": "Livro Físico",
+            "idioma": "Português",
+            "quantidade": "3"            
+        }
+    ]
+}

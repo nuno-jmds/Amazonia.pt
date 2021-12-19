@@ -1,6 +1,6 @@
 using System;
 
-namespace Amazonia.WebAPI
+namespace Amazonia.webAPI
 {
     public class WeatherForecast
     {

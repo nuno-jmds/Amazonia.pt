@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using Amazonia.DAL.Modelo;
 using Amazonia.DAL.Repositorio;
 using Amazonia.DAL.Utils;
@@ -39,6 +40,12 @@ namespace Amazonia.ConsoleAPP
             //DeleteClienteDaBaseDeDados(ctx);
             #endregion
 
+            /*
+            //chamada à API
+            HttpClient client = new HttpClient();
+            var resultado = client.GetAsync("https://localhost:44392/api/Cliente").Result;
+            Console.WriteLine(resultado.Content.ReadAsStringAsync());
+            */
         }
 
         private static void LeituraFicheiroDeConfiguracao()
