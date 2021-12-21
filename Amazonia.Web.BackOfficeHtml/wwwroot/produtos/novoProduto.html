@@ -9,8 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="js/BackOffice.js"></script>
-    <script src="js/index.js"></script>
+    <script src="../js/BackOffice.js"></script>
+    <script src="js/novoProduto.js"></script>
 
 
 
@@ -55,24 +55,45 @@
             <a href="produtos.html">adicionar novo produto</a>
         </div>
 
+        <div class="card-body">
+            <form id="frmCadastroLivros">
+                <div class="form-group">
+                    <label class="col-form-label" for="txtNome">Nome do Livro</label>
+                    <input type="text" class="form-control" placeholder="Nome do livro" id="txtNome">
 
-        <form>
-            <div class="form-group">
-                <label class="col-form-label" for="txtNome">Nome do Livro</label>
-                <input type="text" class="form-control" placeholder="Nome do livro" id="txtNome">
+                    <label class="col-form-label" for="txtPreco">Preço do Livro</label>
+                    <input type="text" class="form-control" placeholder="Preço do Livro" id="txtPreco">
 
-                <label class="col-form-label" for="txtPreco">Preço do Livro</label>
-                <input type="text" class="form-control" placeholder="Preço do Livro" id="txtPreco">
-                <label class="col-form-label" for="txtAutor">Nome do Autor</label>
-                <input type="text" class="form-control" placeholder="Autor" id="txtAutor">
-                <label for="descricao">Descrição</label>
-                <textarea class="form-control" id="descricao" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 113px;"></textarea>
-            </div>
+                    <label class="col-form-label" for="txtAutor">Nome do Autor</label>
+                    <input type="text" class="form-control" placeholder="Autor" id="txtAutor">
+
+                    <label for="descricao">Descrição</label>
+                    <textarea class="form-control" id="descricao" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 113px;"></textarea>
 
 
+                    <label for="cbTipoDeLivro">Tipo De Livro</label>
+                    <select class="form-select" id="cbTipoDeLivro">
+                        <option value="1">Impresso</option>
+                        <option value="2">Digital</option>
+                        <option value="2">ÁudioLivro</option>
+
+                    </select>
+
+                    <label for="cbIdioma">Idioma</label>
+                    <select class="form-select" id="cbIdioma">
+                        <option value="1">Português</option>
+                        <option value="2">Inglês</option>
+                        <option value="2">Espanhol</option>
+
+                    </select>
 
 
-        </form>
+
+                </div>
+
+            </form>
+            <button id="btnSubmit" class="btn btn-primary btn-sm">Submit</button>
+        </div>
     </div>
 
 </body>

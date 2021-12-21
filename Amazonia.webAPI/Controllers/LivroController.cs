@@ -4,6 +4,7 @@ using Amazonia.webAPI.Conversores;
 using Amazonia.webAPI.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,26 +56,27 @@ namespace Amazonia.webAPI.Controllers
         [HttpPost]
         public Livro PostLivroNovo(LivroDto livro)
         {
+            Console.WriteLine("Entrei");
             Livro livroNovo = new LivroImpresso();
-            switch (livro.TipoLivro)
-            {
-                case EnumTipoLivro.LivroImpresso:
-                    livroNovo = new LivroImpresso();
-                    break;
-                case EnumTipoLivro.LivroDigital:
-                    livroNovo = new LivroDigital();
-                    break;
-                case EnumTipoLivro.AudioLivro:
-                    livroNovo = new AudioLivro();
-                    break;
-            }
+            //switch (livro.TipoLivro)
+            //{
+            //    case EnumTipoLivro.LivroImpresso:
+            //        livroNovo = new LivroImpresso();
+            //        break;
+            //    case EnumTipoLivro.LivroDigital:
+            //        livroNovo = new LivroDigital();
+            //        break;
+            //    case EnumTipoLivro.AudioLivro:
+            //        livroNovo = new AudioLivro();
+            //        break;
+            //}
 
             livroNovo.Nome = livro.Nome;
             livroNovo.Autor = livro.Autor;
             livroNovo.Descricao = livro.Descricao;
 
             ctx.Livros.Add(livroNovo);
-
+            ctx.SaveChanges();
             return ctx.Livros.FirstOrDefault(x => x.Id == livroNovo.Id);
         }
 
