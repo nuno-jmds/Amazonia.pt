@@ -1,5 +1,6 @@
 ﻿using Amazonia.DAL.Modelo;
 using Amazonia.DAL.Repositorio;
+using Amazonia.webAPI.Conversores;
 using Amazonia.webAPI.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,35 @@ namespace Amazonia.webAPI.Controllers
             ctx = new AmazoniaContexto();
         }
 
+
+
+
+        
+
+
         [HttpGet]
 
-        public List<Livro> GetLivros() 
+        public DataTableResponse GetLivros() 
         {
-            
-            return ctx.Livros.ToList();
+            var livros = ctx.Livros.ToList();
+
+            //Forma antiga
+            var livrosDto = new List<LivroDto>();
+
+            foreach (var item in livros)
+            {
+                var dtoTemp = LivroAdapter.ConverterLivroEmDto(item);
+                livrosDto.Add(dtoTemp);
+            }
+
+
+            return new DataTableResponse
+            {
+                RecordsTotal = livros.Count,
+                RecordsFiltered = 10,
+                Data = livrosDto.ToArray()
+
+            };
         }
 
         [HttpPost]
