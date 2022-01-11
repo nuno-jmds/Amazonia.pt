@@ -1,0 +1,12 @@
+﻿@model Amazonia.DAL.Modelo.Morada
+
+<div class="card border-secondary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Morada</div>
+    <div class="card-body">
+        <h4 class="card-title" data-unsp-sanitized="clean">Dados da Morada</h4>
+        <p class="card-text">
+            @Html.DisplayFor(modelItem => Model.Distrito)<br />
+            @Html.DisplayFor(modelItem => Model.Localidade)
+        </p>
+    </div>
+</div>

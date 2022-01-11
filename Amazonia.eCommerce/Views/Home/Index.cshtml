@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+    @{
+        var teste = DateTime.Now.ToShortTimeString();
+        @Html.Label(teste);
+    }
+
+
+    <h1>
+        @Html.Label(teste);
+    </h1>
+</div>
+
+
+@{
+    var Mensagem = "Bom dia";
+
+    if (DateTime.Now.Hour >= 18 && DateTime.Now.Hour <= 24)
+    {
+        Mensagem = "Boa Noite";
+    }
+}
+
+
+@{
+    var tabela = "";
+    for (int i = 0; i < 10; i++)
+    {
+        tabela += "<tr><td>" + i + "</td></tr>";
+    }
+}
+
+
+<h1>
+    @Html.Label(Mensagem)
+</h1>
+
+<br />
+<table>
+    @Html.Raw(tabela)
+</table>
+
+
+<!--StringUtils.FirstCharToUpper("o rato roeu...");-->

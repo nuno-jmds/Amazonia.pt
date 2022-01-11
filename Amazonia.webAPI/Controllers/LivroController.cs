@@ -43,6 +43,21 @@ namespace Amazonia.webAPI.Controllers
                 livrosDto.Add(dtoTemp);
             }
 
+            //Com LINQ - Também funciona
+            //var livrosDto =  livros.Select(x => new List<LivroDto>
+            //{
+            //    new LivroDto
+            //    {
+            //        Autor = x.Autor,
+            //        Id = x.Id,
+            //        Formato = x.TipoPorEscrito,
+            //        Nome = x.Nome,
+            //        QuantidadeEmEstoque = new Random().Next(),
+            //        Idioma = LivroAdapter.ObterIdiomaLivro(x.Idioma)
+            //    }
+            //});
+
+            //TODO: No futuro trocar para Automapper
 
             return new DataTableResponse
             {
@@ -58,18 +73,18 @@ namespace Amazonia.webAPI.Controllers
         {
             Console.WriteLine("Entrei");
             Livro livroNovo = new LivroImpresso();
-            //switch (livro.TipoLivro)
-            //{
-            //    case EnumTipoLivro.LivroImpresso:
-            //        livroNovo = new LivroImpresso();
-            //        break;
-            //    case EnumTipoLivro.LivroDigital:
-            //        livroNovo = new LivroDigital();
-            //        break;
-            //    case EnumTipoLivro.AudioLivro:
-            //        livroNovo = new AudioLivro();
-            //        break;
-            //}
+            switch (livro.TipoLivro)
+            {
+                case EnumTipoLivro.LivroImpresso:
+                    livroNovo = new LivroImpresso();
+                    break;
+                case EnumTipoLivro.LivroDigital:
+                    livroNovo = new LivroDigital();
+                    break;
+                case EnumTipoLivro.AudioLivro:
+                    livroNovo = new AudioLivro();
+                    break;
+            }
 
             livroNovo.Nome = livro.Nome;
             livroNovo.Autor = livro.Autor;
@@ -79,6 +94,12 @@ namespace Amazonia.webAPI.Controllers
             ctx.SaveChanges();
             return ctx.Livros.FirstOrDefault(x => x.Id == livroNovo.Id);
         }
+        [HttpGet("{id}")]
+        public Livro GetLivro(Guid id)
+        {
+            return ctx.Livros.FirstOrDefault(x => x.Id == id);
+        }
+
 
         [HttpDelete]
         public bool DeleteLivro(Guid id)

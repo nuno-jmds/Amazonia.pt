@@ -41,6 +41,21 @@ namespace Amazonia.webAPI
             return repo.ObterPorNome(nome);
         }
 
+        [HttpGet]
+        [Route("api/[controller]/ObterClientes")]
+        public Dictionary<string, int> ObterQuantidadeClientesNovo()
+        {
+            var result = new Dictionary<string, int> {
+
+                {"Domingo",10 },
+                 {"Segunda",05 }
+            };
+
+
+                return result;
+        }
+
+
         [HttpPost]
         public Guid PostClienteNovo(string nome, DateTime dataNascimento, string nif)
         {

@@ -1,0 +1,27 @@
+﻿@await Html.PartialAsync("_IndicadorDeAmbiente")
+@await Html.PartialAsync("_AlertaPaginaCompleta")
+
+<h1>Nova View</h1>
+<a class="nav-link text-dark" asp-area="" asp-controller="Produto" asp-action="Listar">Listar</a>
+@@email
+
+@ViewBag.valor*1.2;
+<br />
+
+@(ViewBag.valor*1.2);
+
+@for (int i = 0; i < 5; i++)
+{
+
+    <h2>Exemplo @i</h2>
+
+    @:texto puro
+
+
+    <text>
+        <p>linha sem código</p>
+        <p>linha sem código</p>
+        <p>linha sem código</p>
+    </text>
+}
+

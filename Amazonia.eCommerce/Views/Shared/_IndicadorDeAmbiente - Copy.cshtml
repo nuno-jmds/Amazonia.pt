@@ -1,0 +1,22 @@
+﻿@if (DateTime.Now.Hour >= 13)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <strong>Ambiente de Homologação</strong>
+        <h4 class="alert-heading" data-unsp-sanitized="clean">
+            Ambiente de testes de Pré-Produção --- Pós 12h
+        </h4>
+    </div>
+
+    <script>
+        //alert('Pre-Producao');
+    </script>
+}
+else
+{
+    <div class="alert alert-dismissible alert-primary">
+        <strong>Ambiente de produção</strong>
+        <h4 class="alert-heading" data-unsp-sanitized="clean">
+            Ambiente de testes de Pré-Produção --- antes das 12
+        </h4>
+    </div>
+};
